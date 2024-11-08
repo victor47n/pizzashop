@@ -1,6 +1,6 @@
 import { api } from '@/lib/axios'
 
-export interface GetOrderDetailsParam {
+export interface GetOrderDetailsParams {
   orderId: string
 }
 
@@ -14,19 +14,17 @@ export interface GetOrderDetailsResponse {
     email: string
     phone: string | null
   }
-  orderItems: [
-    {
-      id: string
-      priceInCents: number
-      quantity: number
-      product: {
-        name: string
-      }
-    },
-  ]
+  orderItems: {
+    id: string
+    priceInCents: number
+    quantity: number
+    product: {
+      name: string
+    }
+  }[]
 }
 
-export async function getOrderDetails({ orderId }: GetOrderDetailsParam) {
+export async function getOrderDetails({ orderId }: GetOrderDetailsParams) {
   const response = await api.get<GetOrderDetailsResponse>(`/orders/${orderId}`)
 
   return response.data

@@ -34,14 +34,18 @@ export function SignIn() {
   })
 
   async function handleSingIn(data: SignInForm) {
-    await authenticate({ email: data.email })
+    try {
+      await authenticate({ email: data.email })
 
-    toast.success('Enviamos um link de autenticação para seu e-mail.', {
-      action: {
-        label: 'Reenviar',
-        onClick: () => handleSingIn(data),
-      },
-    })
+      toast.success('Enviamos um link de autenticação para seu e-mail.', {
+        action: {
+          label: 'Reenviar',
+          onClick: () => handleSingIn(data),
+        },
+      })
+    } catch {
+      toast.error('Credenciais inválidas.')
+    }
   }
 
   return (
